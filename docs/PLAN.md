@@ -89,9 +89,10 @@ Sem tabela no Supabase; a ferramenta é stateless. O portal só a exibe (registr
 - [x] Smoke test local em browser real (Playwright): drop de `.xlsx` (69 KB → 9.160
       caracteres), gate de SSO redirecionando ao portal sem sessão, e PDF sem texto exibindo
       a mensagem de `needsOcr`.
-- [ ] **Manual:** rodar `sql/setup.sql` no SQL Editor do Supabase (preencher o UUID do
-      usuário) — o Supabase CLI local aponta para outro projeto.
-- [ ] Smoke test autenticado em produção: card no portal → conversão de `.docx` e `.csv`.
+- [x] **Manual:** rodar `sql/setup.sql` no SQL Editor do Supabase — feito; card publicado na
+      categoria `Utilidades`.
+- [x] Smoke test autenticado em produção: card no portal → portão liberado → `.docx` (com
+      tabela) e `.csv` convertidos; cabeçalho do bridge presente.
 
 ---
 

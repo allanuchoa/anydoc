@@ -23,3 +23,9 @@ Todas as alterações notáveis desta ferramenta serão documentadas neste arqui
 - Chip do arquivo vazava no estado inicial: `.file-chip` declara `display: flex`, que vencia o atributo `hidden`; adicionada regra global `[hidden]`. (Autor: Agente de IA DeepSeek V4.1 Flash Free)
 - Dropzone não era acessível por teclado: agora tem `role="button"`, `tabindex="0"` e trata Enter/Espaço. (Autor: Agente de IA DeepSeek V4.1 Flash Free)
 - Nome do arquivo truncado no chip passou a ter `title` com o nome completo. (Autor: Agente de IA DeepSeek V4.1 Flash Free)
+
+### Validado
+- Portal → card "Conversor de Documentos" (Utilidades) → ferramenta com sessão ativa: portão liberado, cabeçalho do bridge injetado (logo, e-mail, Sair). (Autor: Agente de IA DeepSeek V4.1 Flash Free)
+- `.docx` (1 KB, com tabela Word) → 160 caracteres de Markdown com a tabela preservada. (Autor: Agente de IA DeepSeek V4.1 Flash Free)
+- `.csv` (65 B) → tabela Markdown com cabeçalho e três linhas. (Autor: Agente de IA DeepSeek V4.1 Flash Free)
+- Visitante anônimo → redirect ao portal, sem ver a ferramenta; CDN do Supabase bloqueada → portão permanece trancado com botão de recarregar. (Autor: Agente de IA DeepSeek V4.1 Flash Free)
