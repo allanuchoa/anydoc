@@ -16,6 +16,10 @@ Todas as alterações notáveis desta ferramenta serão documentadas neste arqui
 - Documentação: `README.md`, `docs/PRD.md`, `docs/AGENTS.md`, `docs/PLAN.md` e `sql/setup.sql`. (Autor: Agente de IA DeepSeek V4.1 Flash Free)
 
 ### Corrigido
+- **Acesso:** a interface só é revelada depois que o Supabase confirma a sessão. Antes, o
+  conteúdo era renderizado esmaecido durante a checagem e, se o SDK do Supabase falhasse ao
+  carregar, a ferramenta era liberada. Agora existe um portão (`#boot`) e a ferramenta fica
+  em `<main id="app" hidden>` até a confirmação. (Autor: Agente de IA DeepSeek V4.1 Flash Free)
 - Chip do arquivo vazava no estado inicial: `.file-chip` declara `display: flex`, que vencia o atributo `hidden`; adicionada regra global `[hidden]`. (Autor: Agente de IA DeepSeek V4.1 Flash Free)
 - Dropzone não era acessível por teclado: agora tem `role="button"`, `tabindex="0"` e trata Enter/Espaço. (Autor: Agente de IA DeepSeek V4.1 Flash Free)
 - Nome do arquivo truncado no chip passou a ter `title` com o nome completo. (Autor: Agente de IA DeepSeek V4.1 Flash Free)

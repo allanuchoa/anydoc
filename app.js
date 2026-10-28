@@ -32,6 +32,10 @@
   var bound = false;
 
   function init() {
+    ui.app = document.getElementById('app');
+    ui.boot = document.getElementById('boot');
+    ui.bootText = document.getElementById('boot-text');
+    ui.bootRetry = document.getElementById('boot-retry');
     ui.dropzone = document.getElementById('dropzone');
     ui.input = document.getElementById('file-input');
     ui.chip = document.getElementById('file-chip');
@@ -51,14 +55,13 @@
   }
 
   // A sessao e validada aqui e tambem pelo workbench-bridge (header do portal).
-  // Sem sessao ativa, o usuario volta para o portal.
+  // Sem sessao ativa, o usuario volta para o portal. A interface so entra no
+  // DOM visivel depois desta confirmacao: falha de rede nao libera a ferramenta.
   function checkSession() {
     var client = getSupabaseClient();
 
     if (!client) {
-      document.body.classList.remove('app-loading');
-      showError('Supabase indisponivel', 'O SDK nao carregou. Verifique a conexao e recarregue a pagina.');
-      setStatus('error', 'Falha ao validar a sessao.');
+      showBootError('Nao foi possivel validar a sessao. Verifique a conexao e recarregue.');
       return;
     }
 
@@ -68,7 +71,7 @@
         return;
       }
 
-      document.body.classList.remove('app-loading');
+      revealApp();
       bindUI();
       setStatus('empty', 'Nenhum arquivo selecionado.');
 
@@ -81,6 +84,17 @@
       console.error('Falha ao validar a sessao:', err);
       window.location.replace(CONFIG.PORTAL_URL);
     });
+  }
+
+  function revealApp() {
+    ui.boot.hidden = true;
+    ui.app.hidden = false;
+  }
+
+  function showBootError(message) {
+    ui.bootText.textContent = message;
+    ui.bootRetry.hidden = false;
+    ui.bootRetry.addEventListener('click', function () { window.location.reload(); }, { once: true });
   }
 
   // Listeners em elementos estaticos: ligados uma unica vez (AGENTS.md §8.3).

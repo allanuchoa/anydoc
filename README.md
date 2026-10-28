@@ -99,10 +99,24 @@ O padrão é o do ecossistema, nada específico desta ferramenta:
   - valida a sessão com `supabase.auth.getSession()`;
   - injeta o cabeçalho comum (logo, e-mail, Sair);
   - redireciona para o portal se não houver sessão.
-- `app.js` valida a sessão por conta própria (defesa em profundidade), sai do estado
-  `app-loading` e escuta `SIGNED_OUT` para voltar ao portal.
+- **Portão:** o conteúdo da ferramenta vive em `<main id="app" hidden>`. Enquanto a sessão
+  não é confirmada, só existe na tela o aviso "Verificando sessão...". Sessão ausente →
+  redirect; falha ao carregar o SDK → permanece no portão com botão de recarregar, **sem**
+  liberar a interface.
+- `app.js` valida a sessão por conta própria (defesa em profundidade) e escuta `SIGNED_OUT`
+  para voltar ao portal.
 - A sessão é compartilhada via `localStorage`, chave `sb-<project-id>-auth-token`. Isso só
   funciona porque portal e ferramentas vivem no **mesmo origin** (`allanuchoa.github.io`).
+
+### O limite honesto desse portão
+
+Uma ferramenta 100% client-side não tem como esconder o próprio código: `index.html` e
+`app.js` são arquivos públicos no Pages, e o motor é um pacote público de CDN. Quem quiser
+pode baixar os arquivos e rodar a conversão localmente. O portão serve para que a ferramenta
+**não apareça nem funcione para quem chega sem sessão**, não para proteger dado — e não há
+dado a proteger aqui: nada é gravado, nada é enviado, e as únicas chaves no código são as
+públicas do Supabase. Proteção real de acesso exigiria um backend validando JWT antes de
+servir a página, o que contraria a premissa estática do workbench.
 
 ---
 

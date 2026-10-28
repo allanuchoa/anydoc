@@ -15,9 +15,16 @@
   <!-- Supabase JS Client SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="app-loading">
+<body>
 
-  <main class="container">
+  <!-- Portao de sessao: nada da ferramenta existe no DOM visivel ate o
+       Supabase confirmar uma sessao ativa. -->
+  <div id="boot" class="boot">
+    <p id="boot-text">Verificando sessao...</p>
+    <button id="boot-retry" class="btn btn-secondary" type="button" hidden>Recarregar</button>
+  </div>
+
+  <main class="container" id="app" hidden>
 
     <header class="tool-head">
       <h1>Conversor de Documentos</h1>

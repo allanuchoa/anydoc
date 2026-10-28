@@ -51,6 +51,8 @@ mod.toMarkdownBytes(bytes, format)                    // string markdown, SÍNCR
   compartilham mensagem.
 - Listeners em elementos estáticos são ligados **uma vez** (flag `bound` em `bindUI`).
 - `onAuthStateChange` com `SIGNED_OUT` → volta ao portal.
+- O portão de sessão é `<main id="app" hidden>` + `#boot`: nunca revele a ferramenta por
+  falha de rede ou de CDN. Se o Supabase não carregar, mostre o erro **no portão**.
 - Nada de `outline: none` sem substituto: `:focus-visible` está em `styles.css`.
 - Cor de erro é o token `--color-danger`.
 
