@@ -115,6 +115,14 @@
       }
     });
 
+    // O dropzone e um label focavel (role=button): Enter/Espaco abrem o seletor.
+    ui.dropzone.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        ui.input.click();
+      }
+    });
+
     ui.clear.addEventListener('click', reset);
     ui.retry.addEventListener('click', function () {
       hideError();
@@ -133,6 +141,7 @@
     ui.download.disabled = true;
 
     ui.fileName.textContent = file.name;
+    ui.fileName.title = file.name;
     ui.fileSize.textContent = formatBytes(file.size);
     ui.chip.hidden = false;
 

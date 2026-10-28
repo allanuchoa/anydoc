@@ -82,11 +82,16 @@ Sem tabela no Supabase; a ferramenta é stateless. O portal só a exibe (registr
 - [x] `README.md`, `docs/PRD.md`, `docs/AGENTS.md`, `docs/CHANGELOG.md`, este plano.
 - [x] `sql/setup.sql` (idempotente, só `INSERT`).
 - [x] Repositório `allanuchoa/anydoc` e push da `main`.
+- [x] GitHub Pages habilitado (Source: GitHub Actions) e deploy publicado em
+      `https://allanuchoa.github.io/anydoc/`. Repositório **público**: o Pages não é
+      permitido em repo privado no plano atual (HTTP 422), e a página é pública de qualquer
+      forma.
+- [x] Smoke test local em browser real (Playwright): drop de `.xlsx` (69 KB → 9.160
+      caracteres), gate de SSO redirecionando ao portal sem sessão, e PDF sem texto exibindo
+      a mensagem de `needsOcr`.
 - [ ] **Manual:** rodar `sql/setup.sql` no SQL Editor do Supabase (preencher o UUID do
       usuário) — o Supabase CLI local aponta para outro projeto.
-- [ ] Habilitar GitHub Pages (Source: GitHub Actions) e acompanhar o primeiro deploy.
-- [ ] Smoke test em produção: card no portal → conversão de `.docx` e `.csv`; PDF escaneado
-      exibindo `needsOcr`.
+- [ ] Smoke test autenticado em produção: card no portal → conversão de `.docx` e `.csv`.
 
 ---
 

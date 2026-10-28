@@ -14,3 +14,8 @@ Todas as alterações notáveis desta ferramenta serão documentadas neste arqui
 - SSO do Workbench: validação de sessão, redirect ao portal e escuta de `SIGNED_OUT`. (Autor: Agente de IA DeepSeek V4.1 Flash Free)
 - Estilos B1: tokens do DESIGN.md + rim de 1px inspirado no Solid Glass. (Autor: Agente de IA DeepSeek V4.1 Flash Free)
 - Documentação: `README.md`, `docs/PRD.md`, `docs/AGENTS.md`, `docs/PLAN.md` e `sql/setup.sql`. (Autor: Agente de IA DeepSeek V4.1 Flash Free)
+
+### Corrigido
+- Chip do arquivo vazava no estado inicial: `.file-chip` declara `display: flex`, que vencia o atributo `hidden`; adicionada regra global `[hidden]`. (Autor: Agente de IA DeepSeek V4.1 Flash Free)
+- Dropzone não era acessível por teclado: agora tem `role="button"`, `tabindex="0"` e trata Enter/Espaço. (Autor: Agente de IA DeepSeek V4.1 Flash Free)
+- Nome do arquivo truncado no chip passou a ter `title` com o nome completo. (Autor: Agente de IA DeepSeek V4.1 Flash Free)
