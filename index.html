@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversor de Documentos - Allan Workbench</title>
+  <meta name="description" content="Converte Word, PowerPoint, Excel, OpenDocument, RTF, EPUB, CSV e PDF em Markdown limpo, no proprio navegador.">
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Fontes Oficiais -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+
+  <!-- Supabase JS Client SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="app-loading">
+
+  <main class="container">
+
+    <header class="tool-head">
+      <h1>Conversor de Documentos</h1>
+      <p>
+        Word, PowerPoint, Excel, OpenDocument, RTF, EPUB, CSV e PDF para Markdown limpo.
+        A conversao roda no seu navegador: o arquivo nao sai da maquina.
+      </p>
+    </header>
+
+    <section class="workspace">
+
+      <!-- Entrada -->
+      <div class="pane">
+        <label id="dropzone" class="dropzone" for="file-input">
+          <span class="dropzone-title">Arraste um documento aqui</span>
+          <span class="dropzone-hint">ou clique para escolher um arquivo</span>
+          <span class="dropzone-formats">.docx .pptx .xlsx .odt .rtf .epub .csv .pdf</span>
+          <input id="file-input" type="file" hidden
+                 accept=".doc,.docx,.docm,.ppt,.pps,.pot,.pptx,.pptm,.ppsx,.ppsm,.xls,.xlsx,.xlsm,.xlsb,.odt,.ods,.odp,.rtf,.epub,.csv,.pdf">
+        </label>
+
+        <div id="file-chip" class="file-chip" hidden>
+          <span id="file-name" class="file-name"></span>
+          <span id="file-size" class="file-size"></span>
+          <button id="btn-clear" class="btn btn-ghost" type="button">Remover</button>
+        </div>
+
+        <p id="status" class="status" data-state="empty" role="status">
+          Nenhum arquivo selecionado.
+        </p>
+      </div>
+
+      <!-- Saida -->
+      <div class="pane pane-output">
+        <div class="pane-head">
+          <span class="pane-title">Markdown</span>
+          <div class="pane-actions">
+            <button id="btn-copy" class="btn btn-secondary" type="button" disabled>Copiar</button>
+            <button id="btn-download" class="btn btn-primary" type="button" disabled>Baixar .md</button>
+          </div>
+        </div>
+        <textarea id="output" class="output" readonly spellcheck="false"
+                  placeholder="O markdown convertido aparece aqui."></textarea>
+      </div>
+    </section>
+
+    <!-- Erro -->
+    <div id="error-card" class="error-card" hidden>
+      <strong id="error-title" class="error-title"></strong>
+      <p id="error-message" class="error-message"></p>
+      <button id="btn-retry" class="btn btn-secondary" type="button">Tentar novamente</button>
+    </div>
+
+  </main>
+
+  <!-- Carrega configuracoes locais e o client Supabase -->
+  <script src="config.js"></script>
+  <script src="supabase.js"></script>
+
+  <!-- Injeta dinamicamente o App Bridge (Header e validacao SSO) do Portal -->
+  <script>
+    (function() {
+      const bridgeScript = document.createElement('script');
+      bridgeScript.src = `${CONFIG.PORTAL_URL}assets/js/workbench-bridge.js`;
+      bridgeScript.defer = true;
+      document.head.appendChild(bridgeScript);
+    })();
+  </script>
+
+  <!-- Logica da ferramenta -->
+  <script src="app.js"></script>
+</body>
+</html>
