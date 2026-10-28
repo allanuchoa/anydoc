@@ -6,9 +6,8 @@
 --   Pode reexecutar à vontade: `ON CONFLICT` evita duplicatas e erros.
 --
 -- ANTES DE RODAR
---   1. Descubra o UUID do usuário que terá acesso:
---        SELECT id, email FROM auth.users WHERE email = 'seu@email.com';
---   2. Substitua <uuid-do-usuario> abaixo (repita a linha para mais usuários).
+--   Substitua 'seu@email.com' no Bloco 2 pelo(s) e-mail(s) do(s) usuário(s)
+--   que terão acesso. Nada mais precisa ser preenchido.
 --
 -- CONTRATO RLS DO REGISTRY
 --   Este script APENAS faz INSERT em `applications` e `user_applications`.
@@ -41,12 +40,22 @@ ON CONFLICT (slug) DO UPDATE SET
   status    = EXCLUDED.status;
 
 -- ---------------------------------------------------------------------------
--- Bloco 2: acesso dos usuários (repita a linha para cada usuário)
+-- Bloco 2: acesso dos usuários (por e-mail — nada de caçar UUID no dashboard)
+--   Adicione e-mails separados por vírgula. Usa auth.users, que só é legível
+--   neste contexto (SQL Editor roda como service_role).
 -- ---------------------------------------------------------------------------
 INSERT INTO public.user_applications (user_id, application_id)
-VALUES
-  ('<uuid-do-usuario>', (SELECT id FROM public.applications WHERE slug = 'anydoc'))
+SELECT u.id, a.id
+FROM   auth.users u
+CROSS JOIN public.applications a
+WHERE  a.slug = 'anydoc'
+  AND  u.email IN ('seu@email.com')   -- <-- troque pelo(s) seu(s) e-mail(s)
 ON CONFLICT (user_id, application_id) DO NOTHING;
+
+-- Alternativa por UUID (se preferir):
+-- INSERT INTO public.user_applications (user_id, application_id)
+-- VALUES ('<uuid-do-usuario>', (SELECT id FROM public.applications WHERE slug = 'anydoc'))
+-- ON CONFLICT (user_id, application_id) DO NOTHING;
 
 COMMIT;
 
